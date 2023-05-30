@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include customs_clearance_company *.css
+recursive-include customs_clearance_company *.csv
+recursive-include customs_clearance_company *.html
+recursive-include customs_clearance_company *.ico
+recursive-include customs_clearance_company *.js
+recursive-include customs_clearance_company *.json
+recursive-include customs_clearance_company *.md
+recursive-include customs_clearance_company *.png
+recursive-include customs_clearance_company *.py
+recursive-include customs_clearance_company *.svg
+recursive-include customs_clearance_company *.txt
+recursive-exclude customs_clearance_company *.pyc
