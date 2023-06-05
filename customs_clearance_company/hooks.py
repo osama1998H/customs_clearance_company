@@ -102,13 +102,11 @@ app_license = "MIT"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-#	"*": {
-#		"on_update": "method",
-#		"on_cancel": "method",
-#		"on_trash": "method"
-#	}
-# }
+doc_events = {
+	"Journal Entry": {
+		"on_submit": "customs_clearance_company.events.journal_entry.update_situation_with_expenses",
+	}
+}
 
 # Scheduled Tasks
 # ---------------

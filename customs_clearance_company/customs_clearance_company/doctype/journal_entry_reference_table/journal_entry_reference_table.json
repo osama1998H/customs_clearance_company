@@ -1,0 +1,49 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-06-04 17:17:16.017119",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "amount",
+  "je_link",
+  "user_remark"
+ ],
+ "fields": [
+  {
+   "fieldname": "amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "je_link",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "JE Link",
+   "options": "Journal Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "user_remark",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "User Remark"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-06-04 17:17:16.017119",
+ "modified_by": "Administrator",
+ "module": "Customs Clearance Company",
+ "name": "Journal Entry Reference Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,305 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "format:STU-{YYYY}-{######}",
+ "creation": "2023-06-04 17:21:13.079016",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "column_break_tpy1s",
+  "container_numbers",
+  "section_break_aaflu",
+  "op_company",
+  "ship_name",
+  "shipping_company",
+  "column_break_j49mb",
+  "arrival_date",
+  "papers_date",
+  "policy_number",
+  "num_containers",
+  "section_break_ghlej",
+  "items",
+  "total_qty",
+  "section_break_nvpsk",
+  "column_break_mqjdz",
+  "brand",
+  "notes",
+  "column_break_bn4fu",
+  "origin_country",
+  "work_date",
+  "grace_days",
+  "postage_number",
+  "select_dock_number",
+  "port_dock_number",
+  "column_break_ajgwd",
+  "days_late",
+  "receipt_date",
+  "departure_date",
+  "container_return_date",
+  "column_break_eclg2",
+  "status",
+  "coc2_no",
+  "section_break_1v7gz",
+  "expenses_data",
+  "total_expenses",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Table",
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer Table"
+  },
+  {
+   "fieldname": "container_numbers",
+   "fieldtype": "Table",
+   "label": "Container Numbers",
+   "options": "Container Numbers Table"
+  },
+  {
+   "fieldname": "op_company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Operating Company",
+   "options": "Operating Company"
+  },
+  {
+   "fieldname": "ship_name",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Name of the Ship",
+   "options": "Ship"
+  },
+  {
+   "fieldname": "shipping_company",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Shipping Company",
+   "options": "Shipping Company"
+  },
+  {
+   "fieldname": "column_break_j49mb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "arrival_date",
+   "fieldtype": "Date",
+   "label": "Date of Arrival at the Port"
+  },
+  {
+   "fieldname": "papers_date",
+   "fieldtype": "Date",
+   "label": "Date the Papers Arrived"
+  },
+  {
+   "fieldname": "policy_number",
+   "fieldtype": "Data",
+   "label": "Policy Number",
+   "unique": 1
+  },
+  {
+   "fieldname": "num_containers",
+   "fieldtype": "Int",
+   "label": "Number of Containers"
+  },
+  {
+   "fieldname": "section_break_ghlej",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Situation Item"
+  },
+  {
+   "fieldname": "total_qty",
+   "fieldtype": "Float",
+   "label": "Total Quantity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_nvpsk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_mqjdz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "brand",
+   "fieldtype": "Link",
+   "label": "Brand",
+   "options": "Brand"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "column_break_bn4fu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "origin_country",
+   "fieldtype": "Link",
+   "label": "Country of Origin",
+   "options": "Country"
+  },
+  {
+   "fieldname": "work_date",
+   "fieldtype": "Date",
+   "label": "Date of Work in the Port"
+  },
+  {
+   "fieldname": "grace_days",
+   "fieldtype": "Int",
+   "label": "Number of Grace Days"
+  },
+  {
+   "fieldname": "postage_number",
+   "fieldtype": "Data",
+   "label": "Postage Number"
+  },
+  {
+   "fieldname": "column_break_ajgwd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "days_late",
+   "fieldtype": "Int",
+   "label": "Number of Days Late"
+  },
+  {
+   "fieldname": "receipt_date",
+   "fieldtype": "Date",
+   "label": "Date of Receipt from Company"
+  },
+  {
+   "fieldname": "departure_date",
+   "fieldtype": "Date",
+   "label": "Date of Departure from Port"
+  },
+  {
+   "fieldname": "column_break_eclg2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Situation\nRecipient\nPosting\nAccounts\nClosed"
+  },
+  {
+   "fieldname": "coc2_no",
+   "fieldtype": "Data",
+   "label": "COC2 No"
+  },
+  {
+   "fieldname": "section_break_1v7gz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "expenses_data",
+   "fieldtype": "Table",
+   "label": "Expenses Data",
+   "options": "Journal Entry Reference Table"
+  },
+  {
+   "fieldname": "total_expenses",
+   "fieldtype": "Float",
+   "label": "Total Expenses",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_aaflu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_tpy1s",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "select_dock_number",
+   "fieldtype": "Table MultiSelect",
+   "label": "Select dock number",
+   "options": "Dock Number Table"
+  },
+  {
+   "fieldname": "port_dock_number",
+   "fieldtype": "Small Text",
+   "label": "Port dock number"
+  },
+  {
+   "fieldname": "container_return_date",
+   "fieldtype": "Date",
+   "label": "Container Return Date"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Situation",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-06-05 13:10:43.315760",
+ "modified_by": "Administrator",
+ "module": "Customs Clearance Company",
+ "name": "Situation",
+ "name_case": "UPPER CASE",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "ship_name,shipping_company,policy_number",
+ "show_name_in_global_search": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [
+  {
+   "color": "Blue",
+   "title": "Situation"
+  },
+  {
+   "color": "Green",
+   "title": "Recipient"
+  },
+  {
+   "color": "Yellow",
+   "title": "Posting"
+  },
+  {
+   "color": "Orange",
+   "title": "Accounts"
+  }
+ ],
+ "track_changes": 1,
+ "track_views": 1
+}
