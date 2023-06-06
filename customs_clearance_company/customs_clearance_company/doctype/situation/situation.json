@@ -27,26 +27,25 @@
   "section_break_nvpsk",
   "column_break_mqjdz",
   "brand",
-  "notes",
+  "status",
+  "coc2_no",
+  "select_dock_number",
   "column_break_bn4fu",
   "origin_country",
   "work_date",
   "grace_days",
   "postage_number",
-  "select_dock_number",
-  "port_dock_number",
   "column_break_ajgwd",
   "days_late",
   "receipt_date",
   "departure_date",
   "container_return_date",
   "column_break_eclg2",
-  "status",
-  "coc2_no",
+  "notes",
+  "port_dock_number",
   "section_break_1v7gz",
   "expenses_data",
-  "total_expenses",
-  "amended_from"
+  "total_expenses"
  ],
  "fields": [
   {
@@ -243,21 +242,20 @@
    "fieldname": "container_return_date",
    "fieldtype": "Date",
    "label": "Container Return Date"
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Situation",
-   "print_hide": 1,
-   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
- "is_submittable": 1,
- "links": [],
- "modified": "2023-06-05 13:10:43.315760",
+ "links": [
+  {
+   "link_doctype": "Sales Invoice",
+   "link_fieldname": "situation"
+  },
+  {
+   "link_doctype": "Journal Entry",
+   "link_fieldname": "situation"
+  }
+ ],
+ "modified": "2023-06-06 15:13:25.389249",
  "modified_by": "Administrator",
  "module": "Customs Clearance Company",
  "name": "Situation",

@@ -5,28 +5,40 @@ frappe.ui.form.on('Situation', {
 	refresh(frm) {
 		if (frm.doc.status == 'Accounts') {
 			frm.add_custom_button(__('Sales Invoice'), function () {
-				// Initialize progress
-				frappe.show_progress(__('Creating Sales Invoices'), 0, frm.doc.customer.length);
 
-				frm.doc.customer.forEach(function (customer, index) {
+				// Group expenses by customer
+				const groupedExpenses = {};
+				frm.doc.container_numbers.forEach(function (container) {
+					if (!groupedExpenses[container.customer_name]) {
+						groupedExpenses[container.customer_name] = 0;
+					}
+					groupedExpenses[container.customer_name] += container.expenses;
+				});
+
+				// Create sales invoices for each customer
+				const customerEntries = Object.entries(groupedExpenses);
+				const totalCustomers = customerEntries.length;
+
+				customerEntries.forEach(([customer, expenses], index) => {
 					frappe.db.get_single_value('Customs Clearance Settings', 'default_invoice_item')
 						.then(item => {
 							// Update progress after fetching item
-							frappe.show_progress(__('Creating Sales Invoices'), index + 1, frm.doc.customer.length);
+							frappe.show_progress(__('Creating Sales Invoices'), index + 1, totalCustomers);
 
 							frappe.call({
 								method: "frappe.client.insert",
 								args: {
 									doc: {
 										doctype: "Sales Invoice",
-										customer: customer.customer,
+										customer: customer,
 										posting_date: frappe.datetime.get_today(),
 										due_date: frappe.datetime.add_days(frappe.datetime.get_today(), 7),
+										situation: frm.doc.name,
 										items: [
 											{
 												item_code: item,
 												qty: 1,
-												rate: 0.0,
+												rate: expenses,
 											}
 										]
 									}
@@ -34,69 +46,62 @@ frappe.ui.form.on('Situation', {
 								callback: function (response) {
 									if (!response.exc) {
 										// Update progress after successful creation
-										frappe.show_progress(__('Creating Sales Invoices'), index + 1, frm.doc.customer.length);
-										console.log(response.message);
+										frappe.show_progress(__('Creating Sales Invoices'), index + 1, totalCustomers);
+										console.log(response.message.name);
 										// You can handle the successful creation of the sales invoice here
 									} else {
 										// In case of error, update progress to maximum
-										frappe.show_progress(__('Creating Sales Invoices'), frm.doc.customer.length, frm.doc.customer.length);
+										frappe.show_progress(__('Creating Sales Invoices'), totalCustomers, totalCustomers);
 										console.log(response.exc);
 										// You can handle any exceptions or errors here
 									}
 
 									// Hide progress after all operations are done
-									if (index === frm.doc.customer.length - 1) {
+									if (index === totalCustomers - 1) {
 										frappe.hide_progress();
 									}
+									frappe.hide_progress();
 								}
 							});
-							frappe.db.set_value('Situation', frm.doc.name, 'status', 'Accounts')
-								.then(r => {
-									let doc = r.message;
-									// console.log(doc);
-									frappe.hide_progress();
-								})
-						})
+						});
 				});
+
 			}, __("Create"));
 		}
 	},
 
+
 	before_save(frm) {
-		console.log(frm.doc.select_dock_number);
-		var all_docks = '';
-		frm.doc.select_dock_number.forEach(element => {
-			all_docks += element.record + ', ';
-		});
-		frm.set_value('port_dock_number', all_docks);
+		if (frm.doc.status === 'Closed' && !frm.doc.__islocal) {
+			frappe.throw('This document is locked and cannot be modified.');
+		}
+		splitDocksRecords(frm);
+	},
+	// make form uneditable if status is closed
+	before_load: function (frm) {
+		if (frm.doc.status === 'Closed') {
+			frm.set_read_only();
+		}
 	}
 });
 
-// var customer_array = [];
-// frappe.ui.form.on('Situation', {
-// 	refresh(frm) {
-// 		for (var customer in frm.doc.customer) {
-// 			customer_array.push(frm.doc.customer[customer].customer);
-// 		}
-
-// 		frm.set_query("customer_name", "container_numbers", function () {
-// 			return {
-// 				filters: [
-// 					["Customer", "customer_name", "in", customer_array],
-// 				]
-// 			};
-// 		});
-// 	}
-// });
 
 
 `
 delete (invoice number) field [done]
-distrbute expneses to invoice based on customer and containers
-change doctype to submitable
+distrbute expneses to invoice based on customer and containers [done]
+change doctype to submitable [done]
 show create invoice button only if status is accounts [done]
-add link field to invoice
-on_submit the status should be closed
+add link field to invoice [done]
+on_submit the status should be closed [done]
 add Port dock number (Link)field to situation doctype [done]
 add Container Return Date (Date)field to situation doctype [done]
 `
+
+function splitDocksRecords(frm) {
+	if (frm.doc.select_dock_number.length != 0) {
+		const dockNumbers = frm.doc.select_dock_number.map(element => element.record).join(', ');
+		frm.set_value('port_dock_number', dockNumbers);
+	}
+}
+

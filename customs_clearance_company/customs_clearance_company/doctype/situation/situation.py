@@ -15,6 +15,10 @@ class Situation(Document):
 
 		self.distribute_expenses()
 
+		if self.departure_date:
+			self.container_return_date = frappe.utils.add_days(self.departure_date, 7)
+			
+
 
 		# all_docks = ''
 		# for i in self.select_dock_number:
