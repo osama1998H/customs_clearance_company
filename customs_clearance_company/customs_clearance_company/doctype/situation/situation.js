@@ -72,9 +72,6 @@ frappe.ui.form.on('Situation', {
 
 
 	before_save(frm) {
-		if (frm.doc.status === 'Closed' && !frm.doc.__islocal) {
-			frappe.throw('This document is locked and cannot be modified.');
-		}
 		splitDocksRecords(frm);
 	},
 	// make form uneditable if status is closed
@@ -99,9 +96,10 @@ add Container Return Date (Date)field to situation doctype [done]
 `
 
 function splitDocksRecords(frm) {
-	if (frm.doc.select_dock_number.length != 0) {
-		const dockNumbers = frm.doc.select_dock_number.map(element => element.record).join(', ');
-		frm.set_value('port_dock_number', dockNumbers);
+	if (frm.doc.select_dock_number) {
+		if (frm.doc.select_dock_number.length != 0) {
+			const dockNumbers = frm.doc.select_dock_number.map(element => element.record).join(', ');
+			frm.set_value('port_dock_number', dockNumbers);
+		}
 	}
 }
-

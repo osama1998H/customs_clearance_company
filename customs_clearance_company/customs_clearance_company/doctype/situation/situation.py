@@ -17,7 +17,8 @@ class Situation(Document):
             self.days_late = frappe.utils.date_diff(
                 grace_date, self.arrival_date)
 
-        self.distribute_expenses()
+        if self.expenses_data:
+            self.distribute_expenses()
 
         if self.departure_date:
             self.container_return_date = frappe.utils.add_days(
