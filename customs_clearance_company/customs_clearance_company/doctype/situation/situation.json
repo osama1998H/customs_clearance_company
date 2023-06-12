@@ -35,11 +35,13 @@
   "work_date",
   "grace_days",
   "postage_number",
+  "permit_no",
   "column_break_ajgwd",
   "days_late",
   "receipt_date",
   "departure_date",
   "container_return_date",
+  "permit_date",
   "column_break_eclg2",
   "notes",
   "port_dock_number",
@@ -71,10 +73,9 @@
   },
   {
    "fieldname": "ship_name",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "in_standard_filter": 1,
-   "label": "Name of the Ship",
-   "options": "Ship"
+   "label": "Name of the Ship"
   },
   {
    "fieldname": "shipping_company",
@@ -242,6 +243,16 @@
    "fieldname": "container_return_date",
    "fieldtype": "Date",
    "label": "Container Return Date"
+  },
+  {
+   "fieldname": "permit_no",
+   "fieldtype": "Data",
+   "label": "Permit No"
+  },
+  {
+   "fieldname": "permit_date",
+   "fieldtype": "Date",
+   "label": "Permit Date"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -255,7 +266,7 @@
    "link_fieldname": "situation"
   }
  ],
- "modified": "2023-06-06 15:13:25.389249",
+ "modified": "2023-06-12 10:54:03.815905",
  "modified_by": "Administrator",
  "module": "Customs Clearance Company",
  "name": "Situation",
