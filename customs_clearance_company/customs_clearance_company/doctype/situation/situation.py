@@ -42,39 +42,31 @@ def create_sales_invoices(docname):
                 grouped_expenses[container.customer_name] = 0
             grouped_expenses[container.customer_name] += container.expenses
 
-        # Create sales invoices for each customer
-        total_customers = len(grouped_expenses)
-        for index, (customer, expenses) in enumerate(grouped_expenses.items()):
-            item = frappe.db.get_single_value("Customs Clearance Settings", "default_invoice_item")
+        item = frappe.db.get_single_value("Customs Clearance Settings", "default_invoice_item")
 
-            # Update progress after fetching item
-            frappe.publish_progress(
-                title="Creating Sales Invoices",
-                description=f"Processing {index + 1} of {total_customers}",
-                percent=(index + 1) * 100 / total_customers
-            )
+        sales_invoice = frappe.get_doc({
+            "doctype": "Sales Invoice",
+            "customer": doc.customer,
+            "posting_date": frappe.utils.nowdate(),
+            "due_date": frappe.utils.add_days(frappe.utils.nowdate(), 7),
+            "situation": doc.name,
+            "number_of_containers": doc.num_containers,
+            "policy_number": doc.policy_number,
+            "items": [
+                {
+                    "item_code": item,
+                    "qty": 1,
+                    "rate": doc.total_expenses
+                }
+            ]
+        })
 
-            sales_invoice = frappe.get_doc({
-                "doctype": "Sales Invoice",
-                "customer": customer,
-                "posting_date": frappe.utils.nowdate(),
-                "due_date": frappe.utils.add_days(frappe.utils.nowdate(), 7),
-                "situation": doc.name,
-                "items": [
-                    {
-                        "item_code": item,
-                        "qty": 1,
-                        "rate": expenses
-                    }
-                ]
-            })
-
-            try:
-                sales_invoice.insert(ignore_permissions=True)
-                # Handle the successful creation of the sales invoice here
-            except Exception as e:
-                frappe.log_error(title="Error creating Sales Invoice", message=str(e))
-                # Handle any exceptions or errors here
+        try:
+            sales_invoice.insert(ignore_permissions=True)
+            # Handle the successful creation of the sales invoice here
+        except Exception as e:
+            frappe.log_error(title="Error creating Sales Invoice", message=str(e))
+            # Handle any exceptions or errors here
 
         frappe.publish_progress(
             title="Creating Sales Invoices",

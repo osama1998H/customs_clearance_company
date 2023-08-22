@@ -1,0 +1,56 @@
+{
+ "add_total_row": 1,
+ "columns": [],
+ "creation": "2023-08-22 13:27:59.235466",
+ "disable_prepared_report": 1,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "mandatory": 1,
+   "options": "Customer",
+   "wildcard_filter": 0
+  },
+  {
+   "fieldname": "from",
+   "fieldtype": "Date",
+   "label": "From",
+   "mandatory": 1,
+   "wildcard_filter": 0
+  },
+  {
+   "fieldname": "to",
+   "fieldtype": "Date",
+   "label": "To",
+   "mandatory": 1,
+   "wildcard_filter": 0
+  }
+ ],
+ "idx": 0,
+ "is_standard": "Yes",
+ "modified": "2023-08-22 14:39:37.134584",
+ "modified_by": "Administrator",
+ "module": "Customs Clearance Company",
+ "name": "Account Statement",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "SELECT \n    si.name AS \"Sales Invoice:Link/Sales Invoice:200\",\n    si.grand_total AS \"Grand Total\",\n    si.paid_amount AS \"Paid Amount\",\n    si.outstanding_amount AS \"Outstanding Amount\",\n    si.status AS \"Status\",\n    si.situation AS \"Situation:Link/Situation\",\n    sitem.item AS \"Item Code:Link/Item:120\",\n    sitem.qty AS \"Quantity\",\n    sitem.uom AS \"UOM\",\n    sitem.weight AS \"Weight\",\n    sitem.weight_uom AS \"Weight UOM\",\n    sitem.total_weight AS \"Total Weight\",\n    container.container_number AS \"Container Number\",\n    container.container_size AS \"Container Size\",\n    container.customer_name AS \"Container Customer\",\n    container.expenses AS \"Container Expenses:Currency\"\nFROM\n    `tabSales Invoice` si\nLEFT JOIN\n    `tabSituation` st\nON\n    si.situation = st.name\nLEFT JOIN\n    `tabSituation Item` sitem\nON\n    st.name = sitem.parent\nLEFT JOIN\n    (\n        SELECT\n            parent,\n            GROUP_CONCAT(DISTINCT container_number SEPARATOR ', ') AS container_number,\n            container_size,\n            customer_name,\n            SUM(expenses) AS expenses\n        FROM\n            `tabContainer Numbers Table`\n        GROUP BY\n            parent, container_size, customer_name\n    ) container\nON\n    st.name = container.parent\nWHERE\n    si.customer = %(customer)s\n    AND si.posting_date >= %(from)s\n    AND si.posting_date <= %(to)s;\n",
+ "ref_doctype": "Sales Invoice",
+ "report_name": "Account Statement",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Employee Self Service"
+  }
+ ]
+}
